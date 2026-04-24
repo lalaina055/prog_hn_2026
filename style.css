@@ -1,0 +1,145 @@
+/* ici j'ai mis cette couleur rose pour le fond de toute la page */
+html {
+    background-color: #fbacc1;
+    font-size: 14px;
+    max-width: 100%;
+}
+
+/* sert à donner une taille de style italique au titre principal */
+h1 {
+    font-size: 2em;
+}
+
+/* sert à donner une taille un peu moins grosse au deuxième titre */
+h2 {
+    font-size: 1.5em;
+}
+
+/* ici c'est la zone principale de ma page, elle prend 80% de la largeur et est centrée */
+#page {
+    width: 80%;
+    margin: auto;
+    background-color: #095228;
+    border: 3px solid #ADD8E6;
+}
+
+/* sert à centrer tout ce qui est dans l'en-tête (mon nom et mes photos) */
+.entete {
+    text-align: center;
+}
+
+/* ici c'est la zone "à propos de moi", j'ai mis des marges et un fond gris clair */
+#aboutme {
+    margin: 20px;
+    padding: 15px;
+    background-color: #e8e8e8;
+}
+
+/* sert à centrer le texte dans mon pied de page */
+footer {
+    text-align: center;
+}
+
+
+
+/* ici c'est pour le style des étiquettes des champs (délimiteur, pôle, longueur) */
+/*  les rend visibles avec un fond jaune et des petites majuscules */
+.mylabel {
+    background-color: rgb(255, 204, 51);
+    font-family: arial, helvetica, sans-serif;
+    font-variant: small-caps;
+    font-size: 90%;
+    padding: 2px;
+    border-right: 1px solid rgb(204, 153, 0);
+    border-bottom: 1px solid rgb(204, 153, 0);
+}
+
+/* sert à afficher les messages de succès en vert */
+.infolog {
+    text-align: center;
+    border: 2pt solid rgb(0, 128, 0);
+    padding: 1pt;
+    margin-left: 0px;
+    margin-right: 0px;
+    background: rgb(128, 255, 128);
+}
+
+/* sert à afficher les messages d'erreur en rouge */
+.errorlog {
+    text-align: center;
+    border: 2pt solid rgb(255, 0, 0);
+    padding: 2pt;
+    margin-left: 0px;
+    margin-right: 0px;
+    background-color: rgb(255, 96, 96);
+}
+
+/* ici c'est le conteneur blanc qui entoure tout l'outil d'analyse textuelle */
+/* sert à délimiter la zone avec une bordure noire */
+#container {
+    background-color: white;
+    border: 3px solid black;
+    padding: 2px;
+    padding-bottom: 5%;
+    width: 80%;
+    margin-left: 10%;
+    height: 100%;
+    min-height: 100%;
+    position: relative;
+}
+
+/* la zone qui contient les boutons et les champs de saisie */
+/* sert à lui donner une largeur fixe, un fond bleu clair et une ombre */
+#page-wrapper {
+    width: 600px;
+    background: #cee1fd;
+    padding: 1em;
+    margin: 1em auto;
+    border-top: 5px solid #69c773;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* sert à organiser les deux zones (texte à gauche, résultats à droite) côte à côte */
+#Global {
+    margin-right: auto;
+    margin-left: auto;
+    width: 80%;
+    border: 3px;
+    display: table;
+}
+
+/* ici c'est la zone où s'affiche le texte du fichier (à gauche) */
+#Global #fileDisplayArea {
+    float: left;
+    width: 48%;
+    background: #FFF;
+    font-size: 0.6em;
+    height: 200px;
+    overflow: scroll;
+}
+
+/* ici c'est la zone où s'affichent les résultats (segmentation, dico, grep, graphiques) */
+/* sert à placer cette zone à côté de celle de gauche */
+#Global #page-analysis {
+    margin-left: 52%;
+    background: #FFF;
+    height: 200px;
+    overflow: scroll;
+}
+
+/* ici c'est le style du bouton "aide" */
+/* sert à le rendre vert */
+#helpButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* sert à changer la couleur du bouton aide quand on passe la souris dessus */
+#helpButton:hover {
+    background-color: #45a049;
+}

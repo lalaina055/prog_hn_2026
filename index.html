@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TOLORANJANAHARY ROTSY LALAINA</title>
+    
+    <!-- ici c'est mon fichier css pour le style de la page -->
+    <link rel="stylesheet" href="/Users/lalaina/Desktop/L4INA01/Site/assets/css/style.css">
+    <!-- ici c'est le css de chartist pour que les graphiques soient beaux -->
+    <link rel="stylesheet" href="/Users/lalaina/Desktop/L4INA01/Site/assets/css/chartist.min.css">
+    
+    <!-- ici c'est la librairie chartist qui sert à faire des graphiques -->
+    <script type="text/javascript" src="/Users/lalaina/Desktop/L4INA01/Site/assets/js/chartist.min.js"></script>
+    
+    <!-- sert à mettre une petite icône dans l'onglet du navigateur -->
+    <link rel="shortcut icon" href="http://www.tal.univ-paris3.fr/plurital/logo.ico">
+</head>
+<body>
+    <div id="page">
+        <!-- ici c'est ma zone d'en-tête avec mon nom et mes photos -->
+        <div class="entete">
+            <h1>TOLORANJANAHARY ROTSY LALAINA</h1>
+            <h2>Licence 2 des Sciences du Langage</h2>
+            <center>
+                <img src="/Users/lalaina/Desktop/L4INA01/Site/assets/img/IMG_1059.jpeg" width="20%"/> 
+                <img src="/Users/lalaina/Desktop/L4INA01/Site/assets/img/voiture_comte.jpg" width="20%"/>
+            </center>
+        </div>
+
+        <!-- ici c'est la section "à propos de moi" avec mon parcours et mes films -->
+        <div id="aboutme">
+            <p>A propos de moi:</p>
+            <p>Mon parcours durant les trois dernières années :</p>
+            <table border="1px">
+                <thead>
+                    <tr><th>2025-2026</th><th>université</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>2022-2023</td><td>Lycée</td>
+                </tr>
+                <tr><td>2021-2022</td><td>lycée</td>
+                </tr>
+                <tr><td>2020-2021</td><td>collège</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Voici les cinq derniers films que j'ai vus :</p>
+            <ul>
+                <li>The Elephant Man, David Lynch</li>
+                <li>Twin Peaks, David Lynch</li>
+                <li>Blue Velvet, David Lynch</li>
+            </ul>
+        </div>
+
+       
+        <div id="container">
+            <h1 style="text-align:center;">Analyse des <span style="color:green">données</span> dans un fichier</h1>
+
+            <!-- sert à afficher ou cacher le panneau d'aide -->
+            <div style="text-align:center; margin:10px;">
+                <button id="helpButton" onclick="toggleAide();"><span>Aide</span></button>
+            </div>
+
+            <!-- le panneau d'aide, il est caché au début (display:none) -->
+            <div id="aidePanel" style="display:none; background-color:#f0f0f0; border:1px solid #ccc; margin:10px; padding:10px; text-align:center;">
+                <p>Sélectionner un fichier texte (.txt)</p>
+            </div>
+
+            <div id="page-wrapper">
+                <!-- le bouton pour choisir un fichier txt sur mon ordinateur ou celui de l'utilisateur -->
+                <div>
+                    <span>
+                        <label for="fileInput" class="btn"><small>Sélectionner un fichier au format .txt :</small></label>
+                        <input id="fileInput" type="file" accept="text/plain" name="Fichier (.txt)" />
+                    </span>
+                </div>
+                <br />
+                <p style="text-align:center;">
+                    <!-- ici les délimiteurs : les caractères qui servent à couper les mots -->
+                    <small>
+                        <label for="delimID" class="mylabel">Délimiteur(s)</label>
+                        &nbsp;
+                        <input type="text" value=" ,;’'~|&#@=`-.?!%*$()[]{}_:+«»§\/" name="delim" id="delimID" size="40" />
+                    </small>
+                    <br />
+                    <!-- ici le pôle : le mot ou l'expression que je cherche avec grep -->
+                    <small>
+                        <label for="poleID" class="mylabel">Pôle</label>
+                        &nbsp;
+                        <input type="text" placeholder="entrez un pôle..." name="pole" id="poleID" size="20" />
+                    </small>
+                    &nbsp;
+                    <!-- ici la longueur-->
+                    <small>
+                        <label for="lgID" class="mylabel">Longueur</label>
+                        &nbsp;
+                        <input type="text" value="10" name="lg" id="lgID" size="10" />
+                    </small>
+                    <br />
+                    <br />
+                    <!-- mon bouton love personnalisé -->
+                    <button onclick="alert('LOVE');"><span>LOVE</span></button>
+                    <br />
+                    <br />
+                    <!-- tous mes boutons d'analyse (dictionnaire , Graphe et Grep) -->
+                    <button class="submit" onclick="dictionnaire();"><span>Dictionnaire</span></button>
+                    <button class="submit" onclick="graphiqueCamembert();"><span>Graphique Camembert</span></button>
+                    <button class="submit" onclick="graphiqueLigne();"><span>Graphique Ligne</span></button>
+                    <button class="submit" onclick="graphiqueBarres();"><span>Graphique Barres</span></button>
+                    <button class="submit" onclick="grep();"><span>GREP</span></button>
+                   
+                </p>
+            </div>
+            <!-- ici s'affichent les messages (succès ou erreur) -->
+            <div id="logger3" style="width:100%"></div>
+            <br />
+            <div id="Global">
+                <!-- zone où s'affiche le texte du fichier  -->
+                <div id="fileDisplayArea"></div>
+                <!-- zone où s'affichent les résultats segmentation, dico, grep, graphiques -->
+                <div id="page-analysis" class="ct-chart"></div>
+            </div>
+        </div>
+
+        <!-- mon pied de page avec le lien de l'université -->
+        <footer>
+            <p><a href="https://isorbonne.sorbonne-nouvelle.fr/ENT/">Lien vers le site de Sorbonne Nouvelle.</a></p>
+        </footer>
+    </div>
+
+    <!-- mon fichier main.js qui gère le chargement des fichiers -->
+    <script type="text/javascript" language="javascript" src="/Users/lalaina/Desktop/L4INA01/Site/assets/js/main.js"></script>
+    
+   
+    <script>
+    
+        var global_var_tokens = [];  // ici je stocke tous les mots du texte
+        var global_var_lines = [];   // ici je stocke toutes les lignes non vides du texte
+
+        // fonction qui affiche ou cache le panneau d'aide
+        function toggleAide() {
+            var aidePanel = document.getElementById('aidePanel');
+            if (aidePanel.style.display === 'none') {
+                aidePanel.style.display = 'block';  // si c'est caché, je l'affiche
+            } else {
+                aidePanel.style.display = 'none';   // si c'est affiché, je le cache
+            }
+        }
+
+        // fonction qui segmente le texte (découpe en mots et en lignes) , elle s'exécute automatiquement quand on charge un fichier
+        function segText() {
+            // si aucun fichier n'est chargé, je dis à l'utilisateur d'en charger un
+            if (document.getElementById('fileDisplayArea').innerHTML==""){
+                document.getElementById('logger3').innerHTML="Il faut d'abord charger un fichier .txt !";
+            } else {
+                // si l'utilisateur a effacé les délimiteurs, je lui dis qu'il en faut
+                if (document.getElementById("delimID").value === "") {
+                    document.getElementById("logger3").innerHTML = '<span class="errorlog">Aucun délimiteur donné !</span>'
+                } else {
+                    
+                    document.getElementById('logger3').innerHTML="";
+                    let text = document.getElementById("fileDisplayArea").innerText;  // je récupère le texte
+                    let delim = document.getElementById("delimID").value;           // je récupère les délimiteurs
+                    let display = document.getElementById("page-analysis");         // la zone où j'affiche le résultat
+                
+                    // je crée une expression régulière avec les délimiteurs pour couper le texte
+                    let regex_delim = new RegExp(
+                        "["
+                        + delim
+                            .replace("-", "\\-")   
+                            .replace("[", "\\[").replace("]", "\\]") 
+                        + "\\s"   // j'ajoute les espaces
+                        + "]+"
+                    );
+                
+                    // je découpe le texte en mots (tokens)
+                    let tokens = text.split(regex_delim);
+                    tokens = tokens.filter(x => x.trim() != "");  // j'enlève les mots vides
+                    // et je découpe le texte en lignes
+                    let lines = text.split(/\r?\n/g);
+                    lines = lines.filter(line => line.trim() != "");                
+                    // je stocke les mots et les lignes dans mes variables globales
+                    global_var_tokens = tokens;
+                    global_var_lines = lines;
+                    // j'affiche les mots dans la zone de droite
+                    display.innerHTML = tokens.join(" ");
+                }
+            }
+        }
+
+        // fonction qui affiche le dictionnaire (les mots avec leur fréquence)
+        function dictionnaire() {
+            // si aucun fichier n'est chargé, j'affiche une erreur
+            if (global_var_tokens.length === 0) {
+                document.getElementById('page-analysis').innerHTML = '<span class="errorlog">Erreur : Veuillez d\'abord charger un fichier !</span>';
+                return;  // je quitte de suite la fonction
+            }
+            
+            // je compte combien de fois chaque mot apparaît
+            var compteur = {};
+            for (var i = 0; i < global_var_tokens.length; i++) {
+                var mot = global_var_tokens[i];
+                if (compteur[mot]) {
+                    compteur[mot]++;   // si le mot existe déjà, j'ajoute 1
+                } else {
+                    compteur[mot] = 1; // si c'est la première fois, je mets 1
+                }
+            }
+            
+            // je transforme mon objet en tableau pour pouvoir le trier et regarder
+            var tableauDico = [];
+            for (var mot in compteur) {
+                tableauDico.push({mot: mot, frequence: compteur[mot]});
+            }
+            
+            // je trie par fréquence décroissante (du mot le plus fréquent au moins fréquent)
+            tableauDico.sort(function(a, b) {
+                return b.frequence - a.frequence;
+            });
+            
+            // je construis le tableau html à afficher
+            var html = "<strong>Dictionnaire (fréquence des mots) :</strong><br><br>";
+            html += "<table border='1' style='width:100%; border-collapse:collapse;'>";
+            html += "<tr style='background-color:#ccc;'><th>Mot</th><th>Fréquence</th></tr>";
+            
+            for (var i = 0; i < tableauDico.length; i++) {
+                html += "<tr>";
+                html += "<td style='padding:5px;'>" + tableauDico[i].mot + "</td>";
+                html += "<td style='text-align:center;padding:5px;'>" + tableauDico[i].frequence + "</td>";
+                html += "</tr>";
+            }
+            html += "</table>";
+            
+            // j'affiche le dictionnaire dans la zone de droite
+            document.getElementById('page-analysis').innerHTML = html;
+        }
+
+        // fonction grep - elle cherche un mot ou une expression dans les lignes du texte
+        function grep() {
+            // si aucun fichier n'est chargé, j'affiche une erreur
+            if (global_var_lines.length === 0) {
+                document.getElementById('page-analysis').innerHTML = '<span class="errorlog">Erreur : Veuillez d\'abord charger un fichier !</span>';
+                return;
+            }
+            
+            // je récupère le pôle (le mot ou l'expression que l'utilisateur veut chercher)
+            var pole = document.getElementById('poleID').value;
+            
+            // si l'utilisateur n'a rien écrit dans le champ pôle, j'affiche une erreur
+            if (pole === "") {
+                document.getElementById('page-analysis').innerHTML = '<span class="errorlog">Erreur : Veuillez entrer un pôle (expression régulière) !</span>';
+                return;
+            }
+            
+            try {
+                // je crée l'expression régulière pour chercher le pôle (g = global, i = insensible à la casse)
+                var regex = new RegExp("(" + pole + ")", "gi");
+                var resultatHTML = "<strong>Résultat GREP pour : " + pole + "</strong><br><br>";
+                var lignesTrouvees = 0;
+                
+                // je parcours toutes les lignes une par une
+                for (var i = 0; i < global_var_lines.length; i++) {
+                    var ligne = global_var_lines[i];
+                    
+                    regex.lastIndex = 0;  // je réinitialise l'index pour chaque ligne
+                    
+                    // si la ligne contient le pôle
+                    if (regex.test(ligne)) {
+                        lignesTrouvees++;
+                        regex.lastIndex = 0;
+                        // je colorie en rouge la partie trouvée
+                        var ligneColorisee = ligne.replace(regex, '<span style="background-color: red; color: white;">$1</span>');
+                        
+                        //résultat
+                        resultatHTML += "<div style='border-bottom:1px solid #ccc; padding:5px;'>";
+                        resultatHTML += "<strong>Ligne " + (i+1) + " :</strong><br>";
+                        resultatHTML += ligneColorisee;
+                        resultatHTML += "</div><br>";
+                    }
+                }
+                
+                // si aucune ligne trouvée, je le dis à l'utilisateur par if
+                if (lignesTrouvees === 0) {
+                    resultatHTML += "<span class='infolog'>Aucune ligne ne contient l'expression : " + pole + "</span>";
+                } else {
+                    resultatHTML += "<span class='infolog'>" + lignesTrouvees + " ligne(s) trouvée(s)</span>";
+                }
+                
+                // j'affiche le résultat dans la zone de droite
+                document.getElementById('page-analysis').innerHTML = resultatHTML;
+                
+            } catch(e) {
+                // si l'expression régulière est mal écrite, j'affiche une erreur
+                document.getElementById('page-analysis').innerHTML = '<span class="errorlog">Erreur : Expression régulière invalide !</span>';
+            }
+        }
+
+        // graphique camembert - affiche un camembert avec les 10 mots les plus fréquents
+        function graphiqueCamembert() {
+            // si aucun fichier n'est chargé, j'affiche une erreur
+            if (global_var_tokens.length === 0) {
+                document.getElementById('page-analysis').innerHTML = '<span class="errorlog">Erreur : Veuillez d\'abord charger un fichier !</span>';
+                return;
+            }
+            
+            // je compte les fréquences des mots
+            var frequences = {};
+            for (var i = 0; i < global_var_tokens.length; i++) {
+                var mot = global_var_tokens[i];
+                if (frequences[mot]) {
+                    frequences[mot]++;
+                } else {
+                    frequences[mot] = 1;
+                }
+            }
+            
+            // je trie pour avoir les mots les plus fréquents en premier
+            var tableau = [];
+            for (var mot in frequences) {
+                tableau.push({mot: mot, valeur: frequences[mot]});
+            }
+            tableau.sort(function(a, b) {
+                return b.valeur - a.valeur;
+            });
+            
+            // je garde seulement les 10 premiers
+            var top10 = tableau.slice(0, 10);
+            var labels = [];
+            var series = [];
+            for (var i = 0; i < top10.length; i++) {
+                labels.push(top10[i].mot);
+                series.push(top10[i].valeur);
+            }
+            
+            // je crée le graphique camembert avec chartist
+            new Chartist.Pie('#page-analysis', {
+                labels: labels,
+                series: series
+            });
+        }
+
+        // graphique ligne - affiche une courbe avec les 15 mots les plus fréquents
+        function graphiqueLigne() {
+            if (global_var_tokens.length === 0) {
+                document.getElementById('page-analysis').innerHTML = '<span class="errorlog">Erreur : Veuillez d\'abord charger un fichier !</span>';
+                return;
+            }
+            
+            var frequences = {};
+            for (var i = 0; i < global_var_tokens.length; i++) {
+                var mot = global_var_tokens[i];
+                if (frequences[mot]) {
+                    frequences[mot]++;
+                } else {
+                    frequences[mot] = 1;
+                }
+            }
+            
+            var tableau = [];
+            for (var mot in frequences) {
+                tableau.push({mot: mot, valeur: frequences[mot]});
+            }
+            tableau.sort(function(a, b) {
+                return b.valeur - a.valeur;
+            });
+            
+            // je garde les 15 premiers pour la courbe
+            var top15 = tableau.slice(0, 15);
+            var labels = [];
+            var series = [[]];
+            for (var i = 0; i < top15.length; i++) {
+                labels.push(top15[i].mot);
+                series[0].push(top15[i].valeur);
+            }
+            
+            // je crée le graphique en ligne avec chartist
+            new Chartist.Line('#page-analysis', {
+                labels: labels,
+                series: series
+            });
+        }
+
+        // graphique barres - affiche un diagramme en barres avec les 10 mots les plus fréquents
+        function graphiqueBarres() {
+            if (global_var_tokens.length === 0) {
+                document.getElementById('page-analysis').innerHTML = '<span class="errorlog">Erreur : Veuillez d\'abord charger un fichier !</span>';
+                return;
+            }
+            
+            var frequences = {};
+            for (var i = 0; i < global_var_tokens.length; i++) {
+                var mot = global_var_tokens[i];
+                if (frequences[mot]) {
+                    frequences[mot]++;
+                } else {
+                    frequences[mot] = 1;
+                }
+            }
+            
+            var tableau = [];
+            for (var mot in frequences) {
+                tableau.push({mot: mot, valeur: frequences[mot]});
+            }
+            tableau.sort(function(a, b) {
+                return b.valeur - a.valeur;
+            });
+            
+            var top10 = tableau.slice(0, 10);
+            var labels = [];
+            var series = [[]];
+            for (var i = 0; i < top10.length; i++) {
+                labels.push(top10[i].mot);
+                series[0].push(top10[i].valeur);
+            }
+            
+            // je crée le graphique en barres avec chartist
+            new Chartist.Bar('#page-analysis', {
+                labels: labels,
+                series: series
+            });
+        }
+    </script>
+</body>
+</html>
